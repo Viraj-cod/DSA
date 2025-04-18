@@ -1,0 +1,85 @@
+class node:
+    def __init__(self,val):
+        self.val=val
+        self.left=None
+        self.right=None
+
+class BST:
+    def __init__(self):
+        self.root=None
+    
+    def _insert(self,val):
+        new=node(val)
+        if self.root==None:
+            self.root=new
+            return True
+        self.__insert(self.root,val)
+    
+    def __insert(self,current,val):
+        if current == None:
+            return node(val)
+            
+        if current.val > val:
+            current.left=self.__insert(current.left,val)
+        if current.val < val:
+            current.right= self.__insert(current.right,val)
+        return current
+    
+    def _contains(self,val):
+        if self.root.val==val:
+            return True
+        return self.__contains(self.root,val)
+    
+    def __contains(self,current,val):
+        if current == None:
+            return False
+        if current.val==val:
+            return True
+        if current.val > val:
+            return self.__contains(current.left,val)
+        if current.val < val:
+            return self.__contains(current.right,val)
+    
+    def dis(self,root,level=0):
+        if root:
+            self.dis(root.right,level+1)
+            print(' '*level*4+'->',root.val)
+            self.dis(root.left,level+1)
+        
+    def mn_node(self,current):
+        while current.left:
+            current=current.left
+        return current.val
+    
+    def delete(self,val):
+        return self.__delete(self.root,val)
+    
+    def __delete(self,current,val):
+        if current == None:
+            return None
+        if current.val > val:
+            current.left=self.__delete(current.left,val)
+        elif current.val<val:
+            current.right=self.__delete(current.right,val)
+        else:
+            if current.left == None and current.right == None:
+                return None
+            elif current.left==None:
+                current=current.right
+            elif current.right==None:
+                current=current.left
+            else:
+                mn=self.mn_node(current.right)
+                current.val=mn
+                current.right=self.__delete(current.right,mn)
+        return current
+        
+    
+bt = BST()
+bt._insert(9)
+bt._insert(3)
+bt._insert(99)
+bt._insert(6)
+#print(bt._contains(0))
+bt.delete(3)
+bt.dis(bt.root)
