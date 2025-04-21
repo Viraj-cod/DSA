@@ -1,0 +1,30 @@
+def merge(l1,l2):
+    comb=[]
+    i=0
+    j=0
+    while i < len(l1) and j < len(l2):
+        if l1[i] < l2[j]:
+            comb.append(l1[i])
+            i+=1
+        else:
+            comb.append(l2[j])
+            j+=1
+    
+    while i < len(l1):
+        comb.append(l1[i])
+        i+=1
+    
+    while j < len(l2):
+        comb.append(l2[j])
+        j+=1
+    return comb
+    
+def merge_sort(arr):
+    if len(arr) == 1:
+        return arr
+    m=len(arr)//2
+    left=merge_sort(arr[:m])
+    right=merge_sort(arr[m:])
+    return merge(left,right)
+
+print(merge_sort([5,4,6,3,2]))
