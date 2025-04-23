@@ -1,0 +1,49 @@
+class company:
+    cname='Accenture'
+    ceo='Mr. Aldrin jow'
+    loc='Bangalore'
+    
+    def __init__(self):
+        self.name=input("Enter the employee name:")
+        self.id=input("Enter the employee ID:")
+        self.phno=input("Enter the phone number:")
+    
+    @staticmethod
+    def details(obj):
+        print(obj.cname,'  ',obj.ceo,'   ',obj.loc)
+        print(f'employee name:{obj.name}')
+        print(f'employee id:{obj.id}')
+        print(f'employee phone:{obj.phno}')
+        
+    @classmethod
+    def change_comp(cls):
+        cls.loc='pune'
+        
+    @staticmethod
+    def details1(obj):
+        print(obj.cname,'  ',obj.ceo,'   ',obj.loc)
+        print(f'employee name:{obj.name}')
+        print(f'employee id:{obj.id}')
+        print(f'employee phone:{obj.phno}')
+    
+obj=company()
+print('Class dictionary')
+print(company.__dict__)
+
+print('\nObject dictinary')
+print(obj.__dict__)
+
+print('\nObject dictionary after edition')
+obj.loc='Goa' #this change will be made to perticular object only not to the class
+print(obj.__dict__)
+
+#obj.details(obj)
+obj.change_comp() # this change with Class method will be made to Class
+#obj.details1(obj)
+print('\n Class dictinary after edition')
+print(company.__dict__)
+
+
+
+
+        
