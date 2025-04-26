@@ -1,0 +1,60 @@
+class node:
+    def __init__(self,val):
+        self.val=val
+        self.left=None
+        self.right=None
+
+class bst:
+    def __init__(self):
+        self.root=None
+        self.temp=0
+        self.val=0
+    
+    def insert(self,val):
+        if self.root == None:
+            self.root=node(val)
+            return
+        return self.__insert(self.root,val)
+    
+    def __insert(self,current,val):
+        if current is None:
+            return node(val)
+        elif current.val > val:
+            current.left=self.__insert(current.left,val)
+        elif current.val < val:
+            current.right=self.__insert(current.right,val)
+        return current
+    
+    def dis(self,root,level=0):
+        if root:
+            self.dis(root.right,level+1)
+            print(' '*4*level+'->',root.val)
+            self.dis(root.left,level+1)
+    
+    def mx_Depth(self):
+        self.find_depth(self.root)
+        return self.temp
+    
+    def find_depth(self,current):
+        if current is None:
+            if self.val > self.temp:
+                self.temp=self.val
+            return
+        self.val+=1
+        self.find_depth(current.left)
+        self.find_depth(current.right)
+        self.val-=1
+        
+
+BST=bst()
+BST.insert(12)
+BST.insert(6)
+BST.insert(7)
+BST.insert(16)
+BST.insert(15)
+BST.insert(14)
+BST.insert(13)
+BST.dis(BST.root)
+print(BST.mx_Depth())
+        
+        
