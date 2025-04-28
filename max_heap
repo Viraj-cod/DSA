@@ -1,0 +1,65 @@
+class Heap:
+    def __init__(self):
+        self.heap = []
+    
+    def left_child(self,ind):
+        return (ind*2) +1
+    
+    def righ_child(self,ind):
+        return (ind*2)+2
+    
+    def _parent(self,ind):
+        return (ind-1)//2
+    
+    def swap(self,ind1,ind2):
+        self.heap[ind1],self.heap[ind2]=self.heap[ind2],self.heap[ind1]
+    
+    def insert(self,val):
+        self.heap.append(val)
+        current=len(self.heap)-1
+        while current > 0 and self.heap[current] > self.heap[self._parent(current)]:
+            self.swap(current,self._parent(current))
+            current = self._parent(current)
+    
+    def show(self):
+        return self.heap
+    
+    def remove(self):
+        if len(self.heap) == 0:
+            return None
+        if len(self.heap) == 1:
+            return self.heap.pop()
+        temp = self.heap[0]
+        self.heap[0]=self.heap.pop()
+        self.sink(0)
+        return temp
+    
+    def sink(self,ind):
+        max_v=ind
+        while True:
+            left=self.left_child(ind)
+            right=self.righ_child(ind)
+            if left < len(self.heap) and self.heap[max_v] < self.heap[left]:
+                max_v=left
+            if right < len(self.heap) and self.heap[max_v] < self.heap[right]:
+                max_v=right
+            if max_v != ind:
+                self.swap(max_v,ind)
+                ind=max_v
+            else:
+                return
+
+obj=Heap()
+obj.insert(4)
+obj.insert(3)
+obj.insert(6)
+obj.insert(2)
+obj.insert(9)
+obj.insert(65)
+obj.insert(78)
+obj.insert(43)
+
+print(obj.show())
+obj.remove()
+#obj.remove()
+print(obj.show())
