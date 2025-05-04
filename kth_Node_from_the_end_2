@@ -1,0 +1,57 @@
+class node:
+    def __init__(self,val):
+        self.val=val
+        self.next=None
+    
+class ll:
+    def __init__(self,val):
+        new=node(val)
+        self.head=new
+        self.tail=new
+        self.length=1
+        self.flag=False
+    
+    def append(self,val):
+        new=node(val)
+        if self.length==0:
+            self.head=new
+            self.tail=new
+        else:
+            self.tail.next=new
+            self.tail=new
+        self.length+=1
+        return True
+    
+    def display(self):
+        temp=self.head
+        while temp:
+            print(temp.val,end='->')
+            temp=temp.next
+        print(None)
+    
+   
+    def K_th_from_last(self,k):
+        if k <0:
+            return None
+        
+        slow,fast=self.head,self.head
+        for _ in range(k):
+            if fast is None:
+                return None
+            fast=fast.next
+        
+        while fast is not None:
+            fast=fast.next
+            slow=slow.next
+            
+        return slow.val    
+        
+Rll=ll(8)
+Rll.append(9)
+Rll.append(4)
+Rll.append(2)
+Rll.append(3)
+Rll.append(6)
+#Rll.display()
+#Rll.rev()
+print(Rll.K_th_from_last(5))
