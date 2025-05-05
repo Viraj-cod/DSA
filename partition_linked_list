@@ -1,0 +1,52 @@
+class node:
+    def __init__(self,val):
+        self.val=val
+        self.next=None
+
+class ll:
+    def __init__(self,val):
+        new=node(val)
+        self.head=new
+        
+    def append(self,val):
+        new=node(val)
+        if self.head is None:
+            self.head=new
+            return
+        temp=self.head
+        while temp.next is not None:
+            temp=temp.next
+        temp.next=new
+        
+    def dis(self):
+        temp=self.head
+        while temp is not None:
+            print(temp.val,end='->')
+            temp=temp.next
+        print(None)
+    
+    def partition_list(self,val):
+        d1,d2=node(val),node(val)
+        pre1,pre2=d1,d2
+        current=self.head
+        while current is not None:
+            ori=node(current.val)
+            if current.val < val:
+                pre1.next=ori
+                pre1=ori
+            else:
+                pre2.next=ori
+                pre2=ori
+            current=current.next
+        pre1.next=d2.next
+        self.head=d1.next
+        self.dis()
+
+linked_list = ll(3)
+linked_list.append(8)
+linked_list.append(5)
+linked_list.append(10)
+linked_list.append(2)
+linked_list.append(1)
+linked_list.dis()
+linked_list.partition_list(5)
