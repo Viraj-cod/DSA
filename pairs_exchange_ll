@@ -1,0 +1,73 @@
+class node:
+    def __init__(self,val):
+        self.val=val
+        self.next=None
+
+class linkedlist:
+    def __init__(self,val):
+        new=node(val)
+        self.head=new
+        
+    def append(self,val):
+        new=node(val)
+        if self.head is None:
+            self.head=new
+            return
+        temp=self.head
+        while temp.next is not None:
+            temp=temp.next
+        temp.next=new
+    
+    def dis(self):
+        temp=self.head
+        while temp is not None:
+            print(temp.val,end='->')
+            temp=temp.next
+        print(None)
+    
+    def rev_in_between(self,start,end):
+        if not self.head or start==end:
+            return None
+        dummy=node(0)
+        dummy.next=self.head
+        pre=dummy
+        for _ in range(start-1):
+            pre=pre.next
+        current=pre.next
+        for _ in range(end-start):
+            tomove=current.next
+            current.next=tomove.next
+            tomove.next=pre.next
+            pre.next = tomove
+        self.head = dummy.next
+        self.dis()
+        
+    def exchange_pairs(self):
+        if self.head is None or self.head.next is None:
+            return
+        dum=node(0)
+        dum.next=self.head
+        pre=dum
+        while pre.next and pre.next.next:
+            #assinging
+            first=pre.next
+            second=first.next
+            
+            #swapping
+            first.next= second.next
+            second.next=first
+            pre.next=second
+            
+            #arranging pre
+            pre=first
+        self.head=dum.next
+        self.dis()
+    
+ll = linkedlist(1)
+ll.append(2)
+ll.append(3)
+ll.append(4)
+ll.append(5)
+ll.dis()
+#ll.rev_in_between(3,5)
+ll.exchange_pairs()
