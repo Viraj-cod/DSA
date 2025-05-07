@@ -1,0 +1,50 @@
+class node:
+    def __init__(self,val):
+        self.val=val
+        self.next=None
+        self.prev=None
+
+class doubly:
+    def __init__(self,val):
+        new=node(val)
+        self.head=new
+        self.tail=new
+        self.length=1
+    
+    def append(self,val):
+        new=node(val)
+        if self.length == 0:
+            self.head=new
+            self.tail=new
+        else:
+            self.tail.next=new
+            new.prev=self.tail
+            self.tail=new
+        self.length+=1
+    
+    def dis(self):
+        temp=self.head
+        while temp:
+            print(temp.val,end='->')
+            temp=temp.next
+        print(None)
+    
+    def is_palindrome(self):
+        if self.head is None:
+            return None
+        if self.length==1:
+            return True
+        front=self.head
+        back=self.tail
+        for _ in range((self.length//2)+1):
+            if front.val != back.val:
+                return False
+            front=front.next
+            back=back.prev
+        return True
+    
+dll=doubly(1)
+dll.append(2)
+dll.append(1)
+dll.dis()
+print(dll.is_palindrome())
