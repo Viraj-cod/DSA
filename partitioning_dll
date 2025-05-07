@@ -1,0 +1,63 @@
+class node:
+    def __init__(self,val):
+        self.val=val
+        self.next=None
+        self.prev=None
+
+class doubly:
+    def __init__(self,val):
+        new=node(val)
+        self.head=new
+        self.tail=new
+        self.length=1
+    
+    def append(self,val):
+        new=node(val)
+        if self.length == 0:
+            self.head=new
+            self.tail=new
+        else:
+            self.tail.next=new
+            new.prev=self.tail
+            self.tail=new
+        self.length+=1
+    
+    def dis(self):
+        temp=self.head
+        while temp:
+            print(temp.val,end='->')
+            temp=temp.next
+        print(None)
+    
+    def partitionlist(self,x):
+        if self.head is None:
+            return 
+        dum1,dum2=node(0),node(0)
+        pre1,pre2=dum1,dum2
+        current=self.head
+        while current:
+            if current.val < x:
+                pre1.next=current
+                current.prev=pre1
+                pre1=current
+            else:
+                pre2.next=current
+                current.prev=pre2
+                pre2=current
+            current=current.next
+        pre1.next=dum2.next
+        self.head=dum1.next
+        #self.head.prev=None
+        self.tail=pre2
+        self.tail.next=None
+        self.dis()
+    
+dll=doubly(1)
+dll.append(6)
+dll.append(5)
+dll.append(7)
+dll.append(3)
+dll.append(0)
+dll.append(4)
+dll.dis()
+dll.partitionlist(4)
